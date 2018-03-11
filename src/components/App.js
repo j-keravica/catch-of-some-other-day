@@ -2,15 +2,24 @@ import React from 'react';
 import Header from './Header';
 import Order from './Order';
 import Inventory from './Inventory';
+import sampleFishes from '../sample-fishes';
 
 class App extends React.Component {
   constructor() {
     super();
     this.addFish = this.addFish.bind(this);
+    this.loadSamples = this.loadSamples.bind(this);
     this.state = {
       fishes: {},
       order: {},
     }
+  }
+
+  loadSamples() {
+    console.log('Loading samples');
+    this.setState({
+      fishes: sampleFishes
+    })
   }
 
   addFish(fish) {
@@ -27,7 +36,7 @@ class App extends React.Component {
           <Header tagline="Fresh Sea Food"/>
         </div>
         <Order />
-        <Inventory addFish={this.addFish}/>
+        <Inventory addFish={this.addFish} loadSamples={this.loadSamples}/>
       </div>
     )
   }

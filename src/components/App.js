@@ -23,10 +23,25 @@ class App extends React.Component {
         context: this,
         state: 'fishes'
       });
+
+    console.log('Will mount');
+    const localStorageRef = localStorage.getItem(`order-${this.props.params.storeId}`);
+    console.log({ localStorageRef });
+    if (localStorageRef) {
+      this.setState({
+        order: JSON.parse(localStorageRef)
+      });
+    }
   }
 
   componentWillUnMount() {
     base.removeBinding(this.ref);
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    console.log('Will update');
+    localStorage.setItem(`order-${this.props.params.storeId}`,
+      JSON.stringify(nextState.order));
   }
 
   loadSamples() {
